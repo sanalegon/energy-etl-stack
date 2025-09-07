@@ -1,8 +1,6 @@
 pipeline {
     agent { 
-        node {
-            label 'master || built-in'
-        }
+        label 'master || built-in'
     }
     
     triggers {

@@ -54,7 +54,7 @@ Resources:
         DeleteBehavior: DEPRECATE_IN_DATABASE
       RecrawlPolicy:
         RecrawlBehavior: CRAWL_EVERYTHING
-      Configuration: '{"CrawlerOutput": {"Partitions": {"CreatePartitionIndex": false}}, "Version": 1, "LakeFormationConfiguration": {"UseLakeFormationCredentials": false}, "LineageConfiguration": "DISABLED"}'
+      Configuration: '{"Version": 1, "CrawlerOutput": {"Partitions": {"CreatePartitionIndex": false}}, "LakeFormationConfiguration": {"UseLakeFormationCredentials": false}, "LineageConfiguration": "DISABLED"}'
 
   CrawlerParquetsEnergy:
     Type: AWS::Glue::Crawler
@@ -72,4 +72,4 @@ Resources:
         DeleteBehavior: DEPRECATE_IN_DATABASE
       RecrawlPolicy:
         RecrawlBehavior: CRAWL_EVERYTHING
-      Configuration: '{"CrawlerOutput": {"Partitions": {"CreatePartitionIndex": true}}, "Version": 1, "LakeFormationConfiguration": {"UseLakeFormationCredentials": false}, "LineageConfiguration": "DISABLED"}'
+      Configuration: '{"Version": 1, "CrawlerOutput": {"Partitions": {"CreatePartitionIndex": true}}, "LakeFormationConfiguration": {"UseLakeFormationCredentials": false}, "LineageConfiguration": "DISABLED"}'

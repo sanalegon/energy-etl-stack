@@ -3,9 +3,9 @@ pipeline {
         label 'docker-agent-alpine'
     }
     
-    triggers {
-        pollSCM '* * * * *'
-    }
+    // triggers {
+    //     pollSCM '* * * * *'
+    // }
 
     parameters {
         booleanParam(name: 'DEVELOPMENT', defaultValue: false, description: 'Check to deploy to Development environment')

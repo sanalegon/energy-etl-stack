@@ -19,7 +19,7 @@ pipeline {
                 deleteDir()
 
                 git branch: 'main',
-                    url: 'git@github.com:sanalegon/energy-etl-stack.git'
+                    url: 'https://github.com/sanalegon/energy-etl-stack.git'
 
                 sh 'ls -lart'
             }

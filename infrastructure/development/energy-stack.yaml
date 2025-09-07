@@ -51,23 +51,15 @@ Resources:
       Description: "Crawler with the role of identifying all raw files used in the energy test"
       Role: energy-glue-s3
       DatabaseName: energy-db
-      State: READY
-      Version: 2
-      CreationTime: "2025-07-23T20:22:19Z"
-      LastUpdated: "2025-07-23T23:22:09Z"
-
       Targets:
         S3Targets:
           - Path: "s3://dl-energy/energy_sales/raw/"
             Exclusions: []
-
       SchemaChangePolicy:
         UpdateBehavior: UPDATE_IN_DATABASE
         DeleteBehavior: DEPRECATE_IN_DATABASE
-
       RecrawlPolicy:
         RecrawlBehavior: CRAWL_EVERYTHING
-
       Configuration:
         LakeFormationConfiguration:
           UseLakeFormationCredentials: false

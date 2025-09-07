@@ -1,6 +1,6 @@
 pipeline {
     agent { 
-        label 'docker-agent-aws-cli'
+        label 'docker-agent-alpine'
     }
     
     triggers {

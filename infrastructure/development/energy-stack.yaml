@@ -6,7 +6,7 @@ Parameters:
     Type: String
     Description: The AWS account ID
     Default: "030334431257"
-
+# TODO: CREATE A ROLE CALLED energy-glue-s3 AND REPLACE IT WITH amaris-glue-s3
 Resources:
   # GLUE JOB
   EnergyETLJob:
@@ -15,7 +15,7 @@ Resources:
       # AWS Glue Job Configuration for energy-etl
       Name: energy-etl
       Description: "ETL process to transform three csv files into one parquet file"
-      Role: !Sub "arn:aws:iam::${AWSAccountID}:role/energy-glue-s3"
+      Role: !Sub "arn:aws:iam::${AWSAccountID}:role/amaris-glue-s3"
       Command:
         Name: glueetl
         ScriptLocation: !Sub "s3://aws-glue-assets-${AWSAccountID}-us-east-1/scripts/energy-etl.py"
@@ -44,7 +44,7 @@ Resources:
     Properties:
       Name: crawler-energy
       Description: "Crawler with the role of identifying all raw files used in the energy test"
-      Role: energy-glue-s3
+      Role: amaris-glue-s3
       DatabaseName: energy-db
       Targets:
         S3Targets:
@@ -62,7 +62,7 @@ Resources:
     Properties:
       Name: crawler-parquets-energy
       Description: "Read parquet files created by energy ETL"
-      Role: energy-glue-s3
+      Role: amaris-glue-s3
       DatabaseName: energy-db
       Targets:
         S3Targets:
@@ -86,7 +86,7 @@ Resources:
       - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
       - "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
       MaxSessionDuration: 3600
-      RoleName: "energy-glue-s3"
+      RoleName: "amaris-glue-s3"
       Description: "Allows Glue to call AWS services on your behalf. "
       AssumeRolePolicyDocument:
         Version: "2012-10-17"

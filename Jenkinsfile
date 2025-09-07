@@ -1,6 +1,6 @@
 pipeline {
     agent { 
-        label 'master || built-in'
+        label 'docker-agent-aws-cli'
     }
     
     triggers {

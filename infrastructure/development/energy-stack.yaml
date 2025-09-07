@@ -6,13 +6,12 @@ Parameters:
     Type: String
     Description: The AWS account ID
     Default: "030334431257"
-# TODO: CREATE A ROLE CALLED energy-glue-s3 AND REPLACE IT WITH amaris-glue-s3
+
 Resources:
   # GLUE JOB
   EnergyETLJob:
     Type: AWS::Glue::Job
     Properties:
-      # AWS Glue Job Configuration for energy-etl
       Name: energy-etl
       Description: "ETL process to transform three csv files into one parquet file"
       Role: !Sub "arn:aws:iam::${AWSAccountID}:role/amaris-glue-s3"
@@ -55,8 +54,8 @@ Resources:
         DeleteBehavior: DEPRECATE_IN_DATABASE
       RecrawlPolicy:
         RecrawlBehavior: CRAWL_EVERYTHING
-      Configuration: '{"LakeFormationConfiguration": {"UseLakeFormationCredentials": false}, "LineageConfiguration": "DISABLED", "CreatePartitionIndex": false}'
-  
+      Configuration: '{"CrawlerOutput": {"Partitions": {"CreatePartitionIndex": false}}, "Version": 1, "LakeFormationConfiguration": {"UseLakeFormationCredentials": false}, "LineageConfiguration": "DISABLED"}'
+
   CrawlerParquetsEnergy:
     Type: AWS::Glue::Crawler
     Properties:
@@ -73,25 +72,4 @@ Resources:
         DeleteBehavior: DEPRECATE_IN_DATABASE
       RecrawlPolicy:
         RecrawlBehavior: CRAWL_EVERYTHING
-      Configuration: '{"LakeFormationConfiguration": {"UseLakeFormationCredentials": false}, "LineageConfiguration": "DISABLED", "CreatePartitionIndex": true}'
-  
-  # REQUIRED PERMISSIONS
-  IAMRoleEnergyglues3:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::Role"
-    DeletionPolicy: "Retain"
-    Properties:
-      Path: "/"
-      ManagedPolicyArns:
-      - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-      - "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
-      MaxSessionDuration: 3600
-      RoleName: "amaris-glue-s3"
-      Description: "Allows Glue to call AWS services on your behalf. "
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Action: "sts:AssumeRole"
-          Effect: "Allow"
-          Principal:
-            Service: "glue.amazonaws.com"
+      Configuration: '{"CrawlerOutput": {"Partitions": {"CreatePartitionIndex": true}}, "Version": 1, "LakeFormationConfiguration": {"UseLakeFormationCredentials": false}, "LineageConfiguration": "DISABLED"}'
